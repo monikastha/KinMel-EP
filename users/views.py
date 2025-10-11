@@ -15,12 +15,12 @@ def register(request):
         # Handle form submission logic here
         username = request.POST.get("username")
         email = request.POST.get("email")
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
+        name = request.POST.get("name")
+        address = request.POST.get("address")
         phone = request.POST.get("phone")
         password = request.POST.get("password")
         password_confirm = request.POST.get("password_confirm")
-        if not username or not email or not first_name or not last_name or not password or not password_confirm:
+        if not username or not email or not name or not address or not phone or not password or not password_confirm:
             messages.error(request, "All fields are required.")
             return  render(request, 'admin-register.html')
         if password != password_confirm:
@@ -50,6 +50,7 @@ def register(request):
                     username=username,
                     email=email,
                     phone=phone,
+                    address=address,
                     password=password,
                     role="admin"
                 )
@@ -57,9 +58,9 @@ def register(request):
                 # ✅ Create corresponding admin record
                 admin = Admin.objects.create(
                     username=username,
-                    first_name=first_name,
-                    last_name=last_name,
+                    name=name,
                     email=email,
+                    address=address,
                     phone=phone,
                     user=user
                 )
@@ -111,3 +112,5 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/login')
+def home(request):
+    return render(request, 'home.html')

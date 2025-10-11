@@ -22,9 +22,11 @@ from adminpanel import views as admin_views
 from django.urls import include
 
 urlpatterns = [
+    path('', user_views.home, name='home'),
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
     path('login/', user_views.login_view, name='login'),
     path('logout/', user_views.logout_view, name='logout'),
     path('adminpanel/', include('adminpanel.urls'))
+
 ]
